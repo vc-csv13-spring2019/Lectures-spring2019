@@ -26,22 +26,29 @@ using std::endl;
 
 class Circle {
 private:
-    float radius;
+    float _radius;
 
 public:
-    float getRadius() { return radius; }
-    void setRadius(float r) {
-        if (r > 0) {
-            radius = r;
+    Circle() {
+        _radius = 1;
+    }
+
+    Circle(float radius) {
+        if (radius > 0) {
+            _radius = radius;
         }
     }
 
+    float getRadius() { return _radius; }
+//    void setRadius(float r) {
+//    }
+
     float calculateCircumference() {
-        return 2 * radius * M_PI;
+        return 2 * _radius * M_PI;
     }
 
     float calculateArea() {
-        return radius * radius * M_PI;
+        return _radius * _radius * M_PI;
     }
 };
 
@@ -49,9 +56,8 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
     Circle c1;
-    Circle c2;
-    c1.setRadius(3.0);
-    c2.setRadius(4.0);
+    Circle c2(4.0);
+
     std::cout << c1.getRadius() << std::endl;
     std::cout << c2.getRadius() << std::endl;
 }
