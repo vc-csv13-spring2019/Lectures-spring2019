@@ -14,4 +14,5 @@ private:
 public:
     Phone(std::string phoneNumber);
 };
+
 #endif //LECTURE_PHONE_H
