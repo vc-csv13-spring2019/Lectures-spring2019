@@ -8,9 +8,9 @@
 
 #include "phonenumber.h"
 
-//PhoneNumber::PhoneNumber() {
-//
-//}
+PhoneNumber::PhoneNumber() {
+
+}
 
 PhoneNumber::PhoneNumber(uint16_t countryCode, uint16_t areaCode,
                          uint16_t regionCode, uint16_t endPoint) {
