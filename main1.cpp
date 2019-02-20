@@ -21,6 +21,8 @@ public:
         std::cout << "Inside the destructor" << std::endl;
 
     }
+
+    std::string& getName() { return _name; }
 };
 
 struct Floobits {
@@ -41,17 +43,31 @@ int *bar() {
     return &x;
 }
 
-int main(int argc, char *argv[]) {
-    int x = 10;
-    int *xptr = &x;
-    int **xptrptr = &xptr;
-
-    std::cout << **xptrptr << std::endl;
-
-    char *str = "hello";
-    for(char *c_str = str; *c_str != 0; *(c_str++) += 2) {
-        std::cout << (int)*c_str << std::endl;
+Dog *makeDog(std::string name) {
+    Dog *newDog = new Dog(name);
+    if (name.length() <= 0) {
+        newDog = nullptr;
     }
 
-    std::cout << str << std::endl;
+    return newDog;
+}
+
+int main(int argc, char *argv[]) {
+    std::cout << "Before contstructing..." << std::endl;
+
+    Dog *happy = nullptr;//new Dog("Happy");
+    Dog rocky("Rocky");
+                        // (*happy).getName()
+    std::cout << "Name: " << happy->getName() << std::endl;
+
+    //= makeDog("Happy");
+    std::cout << "happy ptr: " << happy << std::endl;
+
+    delete happy;
+
+    happy = makeDog("Happy");
+    std::cout << "happy ptr: " << happy << std::endl;
+
+    std::cout << "After constructing..." << std::endl;
+
 }
