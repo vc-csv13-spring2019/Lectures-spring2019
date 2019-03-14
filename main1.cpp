@@ -1,73 +1,33 @@
 #include <iostream>
-#include <math.h>
+#include <utility>
 
-#include "phonenumber.h"
-
-using namespace std;
-
-class Dog{
-private:
-    // This data member stores the name of the Dog instance
-    std::string _name;
-
-public:
-    // This is a constructor that names a dog instance. We are
-    // initializing the name in the initialization list
-    Dog(std::string name) : _name(name) {
-        std::cout << "Inside the constructor" << std::endl;
+std::pair<uint8_t *, double> findNearestNeighbor(uint8_t *target,
+                                                 uint8_t **neighbors,
+                                                 size_t neighborCount,
+                                                 size_t neighborSize)  {
+    double nearest = 10000000;
+    for (int i = 0; i < neighborCount; i++) {
+        double distance = 0;
+        for (int j = 0; j < neighborSize; j++) {
+            float m = target[i] - neighbors[i][j];
+            distance += m * m;
+        }
+        nearest = std::min(nearest, distance);
     }
-
-    ~Dog() {
-        std::cout << "Inside the destructor" << std::endl;
-
-    }
-
-    std::string& getName() { return _name; }
-};
-
-struct Floobits {
-public:
-    // The default constructor must use the initialization list
-    // to call the necessary constructor for its dog instances.
-    Floobits() : _clifford("Clifford"), _jeffrey("Jeffrey") {
-    }
-
-private:
-    Dog _clifford;
-    Dog _jeffrey;
-
-};
-
-int *bar() {
-    int x = 10;
-    return &x;
-}
-
-Dog *makeDog(std::string name) {
-    Dog *newDog = new Dog(name);
-    if (name.length() <= 0) {
-        newDog = nullptr;
-    }
-
-    return newDog;
 }
 
 int main(int argc, char *argv[]) {
-    std::cout << "Before contstructing..." << std::endl;
+    int array[][3] = {{10, 20, 30}, {40, 50, 60}, {70, 80, 90}};
 
-    Dog *happy = nullptr;//new Dog("Happy");
-    Dog rocky("Rocky");
-                        // (*happy).getName()
-    std::cout << "Name: " << happy->getName() << std::endl;
+    uint8_t **neighbors = new uint8_t*[1000];
+    for (int i = 0; i < 1000; i++) {
+        neighbors[i] = new uint8_t[6];
+        neighbors[i][0] = 'a';
+    }
 
-    //= makeDog("Happy");
-    std::cout << "happy ptr: " << happy << std::endl;
+    for (int i = 0; i < 3; i++) {
+        std::cout << static_cast<int *>(neighbors[i][0]) << std::endl;
+    }
 
-    delete happy;
-
-    happy = makeDog("Happy");
-    std::cout << "happy ptr: " << happy << std::endl;
-
-    std::cout << "After constructing..." << std::endl;
 
 }
