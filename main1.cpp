@@ -22,9 +22,6 @@ public:
         return *this;
     }
 
-//    Class& operator =(int v) {
-//        *val = v;
-//    }
 };
 
 int main(int argc, char *argv[]) {
