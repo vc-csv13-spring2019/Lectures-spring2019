@@ -1,5 +1,7 @@
 #include <iostream>
 #include <utility>
+#include <bits/stl_vector.h>
+#include <cstring>
 
 struct Implicit {
 
@@ -24,25 +26,81 @@ public:
 
 };
 
+class Card {
+};
+
+class ValueCard: public Card {
+    std::string suit;
+    int value;
+};
+
+class JokerCard: public Card {
+
+};
+
+class RulesCard: public Card {
+
+};
+
+class String {
+    char *_chars;
+    size_t _size;
+
+public:
+    String() {
+        _chars = nullptr;
+        _size = 0;
+    }
+
+    String(const String &other) {
+        // This is the shallow copy
+        // _size = other._size;
+        // _chars = other._chars;
+
+        // This is the deep copy
+        // Let's call the assignment operator since it has the code we want
+        *this = other;
+    }
+
+    String(String &&other) {
+        // This is the shallow copy
+         _size = other._size;
+         _chars = other._chars;
+    }
+
+    ~String() {
+        // Since we called new with [] we called delete with []
+        delete []  _chars;
+        _size = 0;
+    }
+
+    String &operator =(const String &rhs) {
+        if(this == &rhs) return *this;
+
+        _size = rhs._size;
+        delete [] _chars;
+        _chars = new char[_size];
+        strncpy(_chars, rhs._chars, _size);
+    }
+};
+
 int main(int argc, char *argv[]) {
 
-    Class c1(1);
-    Class c2(2);
+    String s1;
+    s1 = s1;
 
-    c2 = c1;
-    *c1.val = 3;
+    std::vector<Card> deck = {ValueCard(), ValueCard(), JokerCard()};
+    deck.reserve(55);
 
-    c2 = Class(5);
+    deck.push_back(ValueCard());
 
-    Implicit i;
-    Implicit i2(i);
-    Implicit i3(std::move(i));
+    std::string s1 = "Hello";
+    std::string s2(s1);
 
-    i2 = i3; // Memory leak?
+    s1[0] ='h';
 
-    i = std::move(i3);
-
-    std::cout << *c2.val << std::endl;
+    std::cout << "s1: " << s1 << std::endl;
+    std::cout << "s2: " << s2 << std::endl;
 
     return 0;
 }
